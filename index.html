@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ítalo da Silva Costa - Desenvolvedor de Software</title>
+    <meta name="description" content="Portfólio de Ítalo da Silva Costa, Desenvolvedor de Software especialista em APIs, Integração de Dados e Dashboards.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <script>
+        // Configuração Tailwind (pode adicionar fontes customizadas aqui se preferir)
+        tailwind.config = {
+            darkMode: 'class', // Habilita dark mode baseado na classe 'dark' no HTML
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            light: '#3b82f6', // Blue 500
+                            DEFAULT: '#2563eb', // Blue 600
+                            dark: '#1d4ed8', // Blue 700
+                        },
+                        'secondary': {
+                            light: '#f3f4f6', // Gray 100
+                            DEFAULT: '#e5e7eb', // Gray 200
+                            dark: '#d1d5db', // Gray 300
+                        }
+                    },
+                    animation: {
+                        fadeIn: 'fadeIn 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+
+        // Lógica para Dark Mode
+        function applyTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                return 'dark';
+            } else {
+                document.documentElement.classList.remove('dark');
+                return 'light';
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = applyTheme();
+            if (currentTheme === 'light') {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+            applyTheme(); // Re-aplica para atualizar a UI imediatamente
+            updateToggleButton(); // Atualiza o ícone do botão
+        }
+
+        function updateToggleButton() {
+             const toggleButton = document.getElementById('theme-toggle');
+             const sunIcon = document.getElementById('theme-toggle-sun');
+             const moonIcon = document.getElementById('theme-toggle-moon');
+             if (document.documentElement.classList.contains('dark')) {
+                 moonIcon.classList.remove('hidden');
+                 sunIcon.classList.add('hidden');
+             } else {
+                 moonIcon.classList.add('hidden');
+                 sunIcon.classList.remove('hidden');
+             }
+        }
+
+        // Aplica o tema ao carregar e atualiza o botão
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTheme();
+            updateToggleButton();
+        });
+
+    </script>
+    <style>
+        /* Estilos adicionais se necessário */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px; /* Ajuste baseado no padding e tamanho do círculo */
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: theme('colors.primary.DEFAULT');
+            border: 3px solid theme('colors.secondary.DEFAULT');
+        }
+        .dark .timeline-item::before {
+             background-color: theme('colors.primary.light');
+             border: 3px solid theme('colors.gray.700');
+        }
+
+        .timeline-connector {
+            position: absolute;
+            left: -22px; /* Alinha com o centro do círculo */
+            top: 20px; /* Começa abaixo do círculo */
+            bottom: 0;
+            width: 2px;
+            background-color: theme('colors.secondary.dark');
+        }
+         .dark .timeline-connector {
+              background-color: theme('colors.gray.600');
+         }
+         .timeline-item:last-child .timeline-connector {
+              display: none; /* Não mostra conector no último item */
+         }
+
+    </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans antialiased transition-colors duration-300">
+
+    <header class="sticky top-0 z-50 w-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary dark:text-primary-light">Ítalo S. Costa</a>
+            <div class="flex items-center space-x-6">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#sobre" class="hover:text-primary dark:hover:text-primary-light transition-colors">Sobre</a>
+                    <a href="#experiencia" class="hover:text-primary dark:hover:text-primary-light transition-colors">Experiência</a>
+                    <a href="#habilidades" class="hover:text-primary dark:hover:text-primary-light transition-colors">Habilidades</a>
+                    <a href="#formacao" class="hover:text-primary dark:hover:text-primary-light transition-colors">Formação</a>
+                    <a href="#contato" class="hover:text-primary dark:hover:text-primary-light transition-colors">Contato</a>
+                </nav>
+                <button id="theme-toggle" onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Alternar tema">
+                    <svg id="theme-toggle-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm0 14a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm8-8a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM3 10a1 1 0 01-1 1H1a1 1 0 110-2h1a1 1 0 011 1zm14.828-5.828a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707zM4.879 15.121a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707zm11.707-.707a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707zM4.879 4.879a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707zM10 5a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="theme-toggle-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                    </svg>
+                </button>
+                 </div>
+        </div>
+    </header>
+    <section id="hero" class="relative min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-800 to-gray-900 dark:from-black dark:to-gray-900 text-white text-center px-6 py-20">
+        <div class="absolute inset-0 bg-black opacity-30 dark:opacity-50"></div> <div class="relative z-10 max-w-3xl mx-auto">
+             <img src="costa.jpg" alt="Foto de Ítalo da Silva Costa" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white dark:border-gray-700 shadow-lg animate-fadeIn">
+            <h1 class="text-4xl md:text-6xl font-bold font-serif mb-4 animate-fadeIn" style="animation-delay: 0.2s;">Ítalo da Silva Costa</h1>
+            <p class="text-xl md:text-2xl text-gray-300 dark:text-gray-400 mb-8 animate-fadeIn" style="animation-delay: 0.4s;">Desenvolvedor de Software | APIs, Integração de Dados e Dashboards</p>
+            <div class="animate-fadeIn" style="animation-delay: 0.6s;">
+                <a href="#contato" class="inline-block px-8 py-3 bg-primary hover:bg-primary-dark dark:bg-primary-light dark:hover:bg-primary text-white font-semibold rounded-lg shadow-lg transition duration-300 mr-4">Entre em Contato</a>
+                <a href="#experiencia" class="inline-block px-8 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 font-semibold rounded-lg shadow-lg transition duration-300">Ver Experiência</a>
+            </div>
+        </div>
+         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+             </svg>
+         </div>
+    </section>
+    <main>
+        <section id="sobre" class="py-16 md:py-24 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto text-center md:text-left flex flex-col md:flex-row items-center md:space-x-12">
+                     <img src="costa.jpg" alt="Ítalo Costa em ambiente de trabalho" class="w-48 h-48 md:w-56 md:h-56 rounded-lg object-cover shadow-lg mb-8 md:mb-0 flex-shrink-0">
+                    <div>
+                        <h2 class="text-3xl font-bold font-serif mb-6 text-primary dark:text-primary-light">Sobre Mim</h2>
+                        <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                            Profissional de tecnologia com sólida experiência em desenvolvimento de software, integração de sistemas e análise de dados. Especialista em Go, Python, SQL e Flutter.
+                        </p>
+                        <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                            Foco na criação de APIs eficientes, automação de processos, otimização de queries em múltiplos bancos de dados (SQL e NoSQL) e construção de dashboards analíticos que impulsionam a tomada de decisão. Adaptável, proativo e sempre buscando entregar soluções escaláveis e de alto impacto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="experiencia" class="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold font-serif text-center mb-12 text-primary dark:text-primary-light">Experiência Profissional</h2>
+                <div class="relative max-w-3xl mx-auto pl-10 border-l-2 border-secondary-dark dark:border-gray-700">
+                    <div class="mb-10 relative timeline-item">
+                        <div class="timeline-connector"></div>
+                        <h3 class="text-xl font-semibold mb-1">Desenvolvedor de Software Júnior</h3>
+                        <p class="text-sm font-medium text-primary dark:text-primary-light mb-1">M2M (Remoto)</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Mai 2024 – Atual</p>
+                        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                            <li>Desenvolvimento de sistema CLI em Go para automação de relatórios gerenciais.</li>
+                            <li>Criação de APIs e scripts Python para coleta e processamento de dados.</li>
+                            <li>Contribuição em dashboards Flutter para visualização de dados.</li>
+                        </ul>
+                    </div>
+                    <div class="mb-10 relative timeline-item">
+                        <div class="timeline-connector"></div>
+                         <h3 class="text-xl font-semibold mb-1">Freelancer – Sistema Administrativo</h3>
+                        <p class="text-sm font-medium text-primary dark:text-primary-light mb-1">Destack Transportes</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Jan 2025 – Atual</p>
+                        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                            <li>Desenvolvimento de sistema de análise e controle administrativo.</li>
+                            <li>Criação de dashboards interativos e otimização de consultas (SQL/NoSQL).</li>
+                             <li>Automação de processos internos e suporte à gestão.</li>
+                        </ul>
+                    </div>
+                     <div class="mb-10 relative timeline-item">
+                        <div class="timeline-connector"></div>
+                        <h3 class="text-xl font-semibold mb-1">Analista de Suporte e Integração</h3>
+                        <p class="text-sm font-medium text-primary dark:text-primary-light mb-1">MpontoM (Salvador/BA)</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Abr 2022 – Fev 2025</p>
+                        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                            <li>Integração de sistemas (Windows/Linux) e suporte técnico.</li>
+                            <li>Análise e monitoramento de dados (SQL Server, PostgreSQL, MongoDB).</li>
+                            <li>Desenvolvimento de soluções automatizadas (Python, Go, PHP).</li>
+                        </ul>
+                    </div>
+                     <div class="mb-10 relative timeline-item">
+                        <div class="timeline-connector"></div>
+                        <h3 class="text-xl font-semibold mb-1">Auxiliar de Regulação e Operações Internas</h3>
+                        <p class="text-sm font-medium text-primary dark:text-primary-light mb-1">NIR – Maternidade Albert Sabin (Salvador/BA)</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Abr 2020 – Mai 2021</p>
+                         <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                            <li>Controle de fluxo de pacientes e gestão de leitos hospitalares.</li>
+                            <li>Elaboração de relatórios e suporte à equipe médica/TI.</li>
+                        </ul>
+                    </div>
+                    <div class="mb-10 relative timeline-item">
+                         <div class="timeline-connector"></div>
+                         <h3 class="text-xl font-semibold mb-1">Auxiliar de Monitoramento II</h3>
+                         <p class="text-sm font-medium text-primary dark:text-primary-light mb-1">Proseg Temporis (Salvador/BA)</p>
+                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Jun 2021 – Abr 2022</p>
+                         <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                            <li>Monitoramento de segurança e elaboração de relatórios preventivos.</li>
+                        </ul>
+                     </div>
+                     <div class="mb-10 relative timeline-item">
+                         <h3 class="text-xl font-semibold mb-1">Auxiliar de Licitação</h3>
+                         <p class="text-sm font-medium text-primary dark:text-primary-light mb-1">Hospital do Exército (Salvador/BA)</p>
+                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Mar 2013 – Mar 2020</p>
+                          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                            <li>Apoio em processos licitatórios e gestão administrativa.</li>
+                        </ul>
+                     </div>
+                       </div>
+            </div>
+        </section>
+        <section id="habilidades" class="py-16 md:py-24 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold font-serif text-center mb-12 text-primary dark:text-primary-light">Habilidades Técnicas</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <i class="fab fa-golang fa-2x text-primary dark:text-primary-light mb-2"></i> <p class="font-medium">Go (Golang)</p>
+                    </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <i class="fab fa-python fa-2x text-primary dark:text-primary-light mb-2"></i>
+                        <p class="font-medium">Python</p>
+                    </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <i class="fas fa-database fa-2x text-primary dark:text-primary-light mb-2"></i>
+                        <p class="font-medium">SQL</p>
+                    </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <i class="fas fa-leaf fa-2x text-primary dark:text-primary-light mb-2"></i>
+                        <p class="font-medium">MongoDB</p>
+                    </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <i class="fab fa-docker fa-2x text-primary dark:text-primary-light mb-2"></i>
+                        <p class="font-medium">Docker</p>
+                    </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <i class="fab fa-git-alt fa-2x text-primary dark:text-primary-light mb-2"></i>
+                        <p class="font-medium">Git</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <p class="font-medium pt-2">Flutter</p> </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <p class="font-medium pt-2">APIs REST/gRPC</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <p class="font-medium pt-2">PostgreSQL</p>
+                    </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <p class="font-medium pt-2">SQL Server</p>
+                    </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                        <p class="font-medium pt-2">Oracle DB</p>
+                    </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                         <p class="font-medium pt-2">Power BI</p>
+                     </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                         <p class="font-medium pt-2">Data Integration</p>
+                     </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                         <p class="font-medium pt-2">Automation</p>
+                     </div>
+                     <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center shadow hover:shadow-md transition-shadow">
+                         <p class="font-medium pt-2">PHP</p>
+                     </div>
+                    </div>
+            </div>
+        </section>
+        <section id="formacao" class="py-16 md:py-24 bg-gray-50 dark:bg-gray-900">
+            <div class="container mx-auto px-6">
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                     <div>
+                         <h2 class="text-3xl font-bold font-serif mb-8 text-primary dark:text-primary-light">Formação Acadêmica</h2>
+                         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                             <h3 class="text-xl font-semibold mb-1">Tecnólogo em Análise e Desenvolvimento de Sistemas</h3>
+                             <p class="text-md font-medium text-primary dark:text-primary-light mb-1">Centro Universitário UniRuy Wyden</p>
+                             <p class="text-sm text-gray-600 dark:text-gray-400">Concluído em 2020</p>
+                         </div>
+                     </div>
+                     <div>
+                          <h2 class="text-3xl font-bold font-serif mb-8 text-primary dark:text-primary-light">Certificações (Seleção)</h2>
+                          <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                             <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
+                                 <li>Criando Projeto com Interface Gráfica em Python (Fund. Bradesco, 2024)</li>
+                                 <li>Desenvolvimento Orientado a Objetos em Python (Fund. Bradesco, 2024)</li>
+                                 <li>Fundamentos de Lógica de Programação (Fund. Bradesco, 2024)</li>
+                                 <li>Programming Essentials in Python (PCAP) (Cisco NetAcad, 2023)</li>
+                                 <li>Projetos de Sistemas de TI (Fund. Bradesco, 2023)</li>
+                                 <li>Introdução a Git e GitHub (Simulador Entr., 2022)</li>
+                                 <li>Introdução ao MongoDB e NoSQL (Simulador Entr., 2022)</li>
+                                 </ul>
+                          </div>
+                     </div>
+                 </div>
+            </div>
+        </section>
+        <section id="contato" class="py-16 md:py-24 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-6 text-center max-w-2xl">
+                <h2 class="text-3xl font-bold font-serif mb-8 text-primary dark:text-primary-light">Entre em Contato</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
+                    Estou sempre aberto a novas oportunidades e colaborações. Se você tem um projeto em mente ou gostaria de discutir como posso agregar valor à sua equipe, sinta-se à vontade para entrar em contato.
+                </p>
+                <div class="space-y-4 mb-8">
+                     <p class="text-lg">
+                        <i class="fas fa-envelope mr-2 text-primary dark:text-primary-light"></i>
+                        <a href="mailto:italosilva14@hotmail.com" class="hover:text-primary dark:hover:text-primary-light transition-colors">italosilva14@hotmail.com</a>
+                     </p>
+                     <p class="text-lg">
+                         <i class="fas fa-phone mr-2 text-primary dark:text-primary-light"></i>
+                         <a href="tel:+5571991655113" class="hover:text-primary dark:hover:text-primary-light transition-colors">+55 (71) 99165-5113</a>
+                     </p>
+                     <p class="text-lg">
+                         <i class="fas fa-map-marker-alt mr-2 text-primary dark:text-primary-light"></i>
+                         Salvador, Bahia, Brasil
+                     </p>
+                </div>
+                 <div class="flex justify-center space-x-6">
+                    <a href="https://linkedin.com/in/i-s-c" target="_blank" rel="noopener noreferrer" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-light transition-colors text-3xl" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/italosilva18" target="_blank" rel="noopener noreferrer" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-light transition-colors text-3xl" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                 </div>
+            </div>
+        </section>
+        </main>
+
+    <footer class="bg-gray-900 dark:bg-black text-gray-400 dark:text-gray-500 py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p>&copy; <span id="current-year"></span> Ítalo da Silva Costa. Todos os direitos reservados.</p>
+             <p class="text-sm mt-2">Construído com <a href="https://tailwindcss.com/" target="_blank" rel="noopener" class="hover:text-primary-light">Tailwind CSS</a> e hospedado no <a href="https://pages.github.com/" target="_blank" rel="noopener" class="hover:text-primary-light">GitHub Pages</a>.</p>
+        </div>
+    </footer>
+    <script>
+        // Atualiza o ano no footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
