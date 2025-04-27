@@ -44,30 +44,45 @@
                 }
             }
         }
-
-        // Lógica Dark Mode (mantida)
-        function applyTheme() { /* ... (código anterior) ... */ }
-        function toggleTheme() { /* ... (código anterior) ... */ }
-        function updateToggleButton() { /* ... (código anterior) ... */ }
-        document.addEventListener('DOMContentLoaded', () => { /* ... (código anterior) ... */ });
-
     </script>
     <style>
-        /* Estilo da Timeline (mantido com cores do tema) */
+        /* Estilo da Timeline */
         .timeline-item::before {
-            content: ''; position: absolute; left: -31px; top: 0; width: 20px; height: 20px;
-            border-radius: 50%; background-color: theme('colors.primary.DEFAULT');
+            content: '';
+            position: absolute;
+            left: -31px; /* Ajuste baseado no padding e tamanho do círculo */
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: theme('colors.primary.DEFAULT');
             border: 3px solid theme('colors.secondary.DEFAULT');
+            z-index: 1; /* Garante que o círculo fique sobre o conector */
         }
         .dark .timeline-item::before {
-            background-color: theme('colors.primary.light'); border: 3px solid theme('colors.dark-card');
+            background-color: theme('colors.primary.light');
+            border: 3px solid theme('colors.dark-card');
         }
         .timeline-connector {
-            position: absolute; left: -22px; top: 20px; bottom: 0; width: 2px;
+            position: absolute;
+            left: -22px; /* Alinha com o centro do círculo */
+            top: 20px; /* Começa abaixo do círculo */
+            bottom: -20px; /* Estende um pouco para baixo do último item */
+            width: 2px;
             background-color: theme('colors.secondary.dark');
+             z-index: 0; /* Garante que o conector fique atrás do círculo */
         }
-        .dark .timeline-connector { background-color: theme('colors.gray.700'); }
-        .timeline-item:last-child .timeline-connector { display: none; }
+        .dark .timeline-connector {
+            background-color: theme('colors.gray.700');
+        }
+        /* Remove o conector do último item da timeline */
+        #experiencia .relative.max-w-3xl > .timeline-item:last-child .timeline-connector {
+            display: none;
+        }
+        /* Garante padding inferior no container da timeline para o último item */
+         #experiencia .relative.max-w-3xl {
+            padding-bottom: 1px; /* Evita que a borda suma no último item */
+         }
     </style>
 </head>
 
@@ -87,9 +102,9 @@
                 </nav>
                 <button id="theme-toggle" onclick="toggleTheme()" class="p-2 rounded-full text-text-secondary dark:text-dark-text-secondary hover:bg-secondary dark:hover:bg-gray-700 transition-colors" aria-label="Alternar tema">
                     <svg id="theme-toggle-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm0 14a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm8-8a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM3 10a1 1 0 01-1 1H1a1 1 0 110-2h1a1 1 0 011 1zm14.828-5.828a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707zM4.879 15.121a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707zm11.707-.707a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707zM4.879 4.879a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707zM10 5a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd" /></svg>
-                    <svg id="theme-toggle-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
+                    <svg id="theme-toggle-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>
                 </button>
-                </div>
+            </div>
         </div>
     </header>
 
@@ -136,10 +151,9 @@
                         <p class="text-sm font-medium text-primary dark:text-primary-light mb-1">M2M (Remoto)</p>
                         <p class="text-sm text-text-secondary dark:text-dark-text-secondary mb-2">Mai 2024 – Atual</p>
                         <ul class="list-disc list-inside text-text-secondary dark:text-dark-text-secondary space-y-1 text-base">
-                            <li>Desenvolvimento de sistema CLI em Go para automação de relatórios.</li>
-                            <li>Criação de APIs (Python/FastAPI) e scripts para coleta/processamento de dados.</li>
+                            <li>Desenvolvimento de sistema CLI em Go para automação de relatórios gerenciais.</li>
+                            <li>Criação de APIs (Python/FastAPI) e scripts para coleta e processamento de dados.</li>
                             <li>Desenvolvimento e manutenção de dashboards analíticos com Flutter.</li>
-                            {/* Adicionar métrica: Ex: "Responsável pela automação que reduziu X% o tempo de..." */}
                         </ul>
                     </div>
                     <div class="mb-10 relative timeline-item" data-aos="fade-left" data-aos-delay="100">
@@ -151,7 +165,6 @@
                             <li>Projeto e desenvolvimento de sistema de análise e controle administrativo.</li>
                             <li>Criação de dashboards interativos e otimização de queries (SQL/NoSQL).</li>
                             <li>Automação de processos e relatórios para suporte à gestão operacional.</li>
-                            {/* Adicionar métrica: Ex: "Melhoria de X% na visualização de KPIs com novos dashboards." */}
                         </ul>
                     </div>
                      <div class="mb-10 relative timeline-item" data-aos="fade-left" data-aos-delay="200">
@@ -163,7 +176,6 @@
                             <li>Integração de software (Windows/Linux) e suporte técnico N2/N3.</li>
                             <li>Monitoramento e análise de dados (SQL Server, PostgreSQL, MongoDB).</li>
                             <li>Desenvolvimento de scripts e pequenas aplicações (Python, Go, PHP).</li>
-                             {/* Adicionar métrica: Ex: "Redução de X chamados críticos após implementação de..." */}
                         </ul>
                     </div>
                      <div class="mb-10 relative timeline-item" data-aos="fade-left" data-aos-delay="300">
@@ -176,55 +188,61 @@
                             <li>Elaboração de relatórios e suporte a sistemas internos.</li>
                         </ul>
                     </div>
-                    {/* Adicionar Proseg e Exército se relevante para o tipo de vaga */}
-                </div>
-            </div>
+                    <div class="mb-10 relative timeline-item" data-aos="fade-left" data-aos-delay="400">
+                        <h3 class="text-xl font-semibold mb-1">Outras Experiências Anteriores</h3>
+                        <p class="text-sm text-text-secondary dark:text-dark-text-secondary mb-2">2012 – 2022</p>
+                        <ul class="list-disc list-inside text-text-secondary dark:text-dark-text-secondary space-y-1 text-base">
+                            <li>Inclui funções como Auxiliar de Monitoramento (Proseg Temporis), Auxiliar de Licitação (Hospital do Exército) e Estágio Administrativo (IF Baiano).</li>
+                         </ul>
+                    </div>
+
+                </div> </div>
         </section>
 
         <section id="projetos" class="py-16 md:py-24 bg-white dark:bg-dark-card">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold font-serif text-center mb-12 text-primary dark:text-primary-light" data-aos="fade-up">Projetos em Destaque</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-secondary-light dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up">
+                    <div class="bg-secondary-light dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 flex flex-col" data-aos="fade-up">
                         <h3 class="text-xl font-semibold mb-3">Sistema ADM - Destack Transportes</h3>
-                        <p class="text-text-secondary dark:text-dark-text-secondary mb-4 text-base">
+                        <p class="text-text-secondary dark:text-dark-text-secondary mb-4 text-base flex-grow">
                             Desenvolvimento (freelance) de um sistema web para análise e controle administrativo, focado em otimizar a gestão de operações e dados da transportadora.
                         </p>
-                        <div class="mb-4">
+                        <div class="mb-4 mt-auto">
                             <span class="inline-block bg-primary/10 text-primary dark:bg-primary-light/20 dark:text-primary-light text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Python</span>
                             <span class="inline-block bg-primary/10 text-primary dark:bg-primary-light/20 dark:text-primary-light text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Flask/Django</span>
                              <span class="inline-block bg-primary/10 text-primary dark:bg-primary-light/20 dark:text-primary-light text-xs font-medium mr-2 px-2.5 py-0.5 rounded">PostgreSQL</span>
                             <span class="inline-block bg-primary/10 text-primary dark:bg-primary-light/20 dark:text-primary-light text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Dashboards</span>
                         </div>
-                        {/* <a href="#" class="text-primary dark:text-primary-light hover:underline font-medium">Ver detalhes (se houver link)</a> */}
+                        <a href="https://github.com/italosilva18" target="_blank" rel="noopener noreferrer" class="text-primary dark:text-primary-light hover:underline font-medium mt-2 self-start">Ver no GitHub</a>
                     </div>
 
-                    <div class="bg-secondary-light dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-secondary-light dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 flex flex-col" data-aos="fade-up" data-aos-delay="100">
                         <h3 class="text-xl font-semibold mb-3">CLI-Robo (Go)</h3>
-                         <p class="text-text-secondary dark:text-dark-text-secondary mb-4 text-base">
+                         <p class="text-text-secondary dark:text-dark-text-secondary mb-4 text-base flex-grow">
                             Ferramenta CLI em Go que executa queries parametrizadas em diversos sistemas (RMS, Gestor), gera relatórios (CSV/JSON) e publica em APIs externas.
                         </p>
-                         <div class="mb-4">
+                         <div class="mb-4 mt-auto">
                             <span class="inline-block bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Go</span>
                             <span class="inline-block bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">gRPC</span>
                             <span class="inline-block bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">CLI</span>
                              <span class="inline-block bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Automação</span>
                         </div>
-                         <a href="https://github.com/italosilva18" target="_blank" rel="noopener noreferrer" class="text-primary dark:text-primary-light hover:underline font-medium">Ver no GitHub</a>
+                         <a href="https://github.com/italosilva18" target="_blank" rel="noopener noreferrer" class="text-primary dark:text-primary-light hover:underline font-medium mt-2 self-start">Ver no GitHub</a>
                     </div>
 
-                     <div class="bg-secondary-light dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+                     <div class="bg-secondary-light dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 flex flex-col" data-aos="fade-up" data-aos-delay="200">
                         <h3 class="text-xl font-semibold mb-3">Painel Destak (Flutter)</h3>
-                         <p class="text-text-secondary dark:text-dark-text-secondary mb-4 text-base">
+                         <p class="text-text-secondary dark:text-dark-text-secondary mb-4 text-base flex-grow">
                              Dashboard analítico (Web/Mobile) para visualização de dados de transporte rodoviário, com filtros interativos e sincronização offline via SQLite.
                         </p>
-                         <div class="mb-4">
+                         <div class="mb-4 mt-auto">
                              <span class="inline-block bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Flutter</span>
                              <span class="inline-block bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Dart</span>
                              <span class="inline-block bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Mobile/Web</span>
                              <span class="inline-block bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">SQLite</span>
                         </div>
-                         {/* <a href="#" class="text-primary dark:text-primary-light hover:underline font-medium">Link (se houver)</a> */}
+                         <a href="https://github.com/italosilva18" target="_blank" rel="noopener noreferrer" class="text-primary dark:text-primary-light hover:underline font-medium mt-2 self-start">Ver no GitHub</a>
                     </div>
                 </div>
             </div>
@@ -233,45 +251,42 @@
         <section id="habilidades" class="py-16 md:py-24 bg-secondary-light dark:bg-dark-bg">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold font-serif text-center mb-12 text-primary dark:text-primary-light" data-aos="fade-up">Habilidades Técnicas</h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
                     <div data-aos="fade-up">
-                        <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-code mr-3 text-primary dark:text-primary-light"></i>Linguagens & Frameworks</h3>
+                        <h3 class="text-xl font-semibold mb-5 flex items-center"><i class="fas fa-code mr-3 text-primary dark:text-primary-light text-2xl"></i>Linguagens & Frameworks</h3>
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Go (Echo, gRPC)</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Python (FastAPI, Django)</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Flutter</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">PHP</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">HTML5 / CSS3</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Tailwind CSS</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Go (Echo, gRPC)</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Python (FastAPI, Django)</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Flutter & Dart</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">PHP</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">JavaScript</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">HTML5 / CSS3</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Tailwind CSS</span>
                         </div>
                     </div>
-
                      <div data-aos="fade-up" data-aos-delay="100">
-                        <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-database mr-3 text-primary dark:text-primary-light"></i>Bancos de Dados</h3>
+                        <h3 class="text-xl font-semibold mb-5 flex items-center"><i class="fas fa-database mr-3 text-primary dark:text-primary-light text-2xl"></i>Bancos de Dados</h3>
                         <div class="flex flex-wrap gap-2">
-                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">PostgreSQL</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">SQL Server</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Oracle</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">MongoDB</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">SQLite</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">SQL & PL/pgSQL</span>
+                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">PostgreSQL</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">SQL Server</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Oracle</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">MongoDB</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">SQLite</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">SQL & PL/pgSQL</span>
                         </div>
                     </div>
-
                     <div data-aos="fade-up" data-aos-delay="200">
-                         <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-tools mr-3 text-primary dark:text-primary-light"></i>Ferramentas & Outros</h3>
+                         <h3 class="text-xl font-semibold mb-5 flex items-center"><i class="fas fa-tools mr-3 text-primary dark:text-primary-light text-2xl"></i>Ferramentas & Conceitos</h3>
                         <div class="flex flex-wrap gap-2">
-                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Git & GitHub</span>
-                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Docker</span>
-                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">APIs REST/gRPC</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">RabbitMQ / MQTT</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">AWS SQS</span>
-                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Grafana / Prometheus</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Power BI</span>
-                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Linux / Bash</span>
-                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1 rounded-full">Scrum / Kanban</span>
+                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Git & GitHub</span>
+                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Docker</span>
+                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">APIs REST/gRPC</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Mensageria (RabbitMQ, MQTT, SQS)</span>
+                             <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Monitoramento (Grafana, Prometheus)</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Visualização (Power BI)</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Linux & Bash Scripting</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Metodologias Ágeis</span>
+                            <span class="bg-gray-200 dark:bg-gray-700 text-sm font-medium px-3 py-1.5 rounded-md">Integração de Sistemas</span>
                         </div>
                     </div>
                 </div>
@@ -330,24 +345,24 @@
                     Estou disponível para novas oportunidades, projetos freelancer ou apenas para trocar ideias sobre tecnologia. Entre em contato!
                 </p>
                 <div class="space-y-5 mb-10" data-aos="fade-up" data-aos-delay="200">
-                     <p class="text-lg flex items-center justify-center">
-                        <i class="fas fa-envelope mr-3 text-primary dark:text-primary-light fa-fw"></i>
+                     <p class="text-lg flex items-center justify-center flex-wrap">
+                        <i class="fas fa-envelope mr-3 text-primary dark:text-primary-light fa-fw text-xl"></i>
                         <a href="mailto:italosilva14@hotmail.com" class="hover:text-primary dark:hover:text-primary-light transition-colors break-all">italosilva14@hotmail.com</a>
                      </p>
                      <p class="text-lg flex items-center justify-center">
-                         <i class="fas fa-phone mr-3 text-primary dark:text-primary-light fa-fw"></i>
+                         <i class="fas fa-phone mr-3 text-primary dark:text-primary-light fa-fw text-xl"></i>
                          <a href="tel:+5571991655113" class="hover:text-primary dark:hover:text-primary-light transition-colors">+55 (71) 99165-5113</a>
                      </p>
                      <p class="text-lg flex items-center justify-center">
-                         <i class="fas fa-map-marker-alt mr-3 text-primary dark:text-primary-light fa-fw"></i>
+                         <i class="fas fa-map-marker-alt mr-3 text-primary dark:text-primary-light fa-fw text-xl"></i>
                          Salvador, Bahia, Brasil
                      </p>
                 </div>
                  <div class="flex justify-center space-x-6" data-aos="fade-up" data-aos-delay="300">
-                    <a href="https://linkedin.com/in/i-s-c" target="_blank" rel="noopener noreferrer" class="text-text-secondary dark:text-dark-text-secondary hover:text-primary dark:hover:text-primary-light transition-colors text-3xl transform hover:scale-110" aria-label="LinkedIn">
+                    <a href="https://linkedin.com/in/i-s-c" target="_blank" rel="noopener noreferrer" class="text-text-secondary dark:text-dark-text-secondary hover:text-primary dark:hover:text-primary-light transition-all duration-300 text-3xl transform hover:scale-110" aria-label="LinkedIn">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://github.com/italosilva18" target="_blank" rel="noopener noreferrer" class="text-text-secondary dark:text-dark-text-secondary hover:text-primary dark:hover:text-primary-light transition-colors text-3xl transform hover:scale-110" aria-label="GitHub">
+                    <a href="https://github.com/italosilva18" target="_blank" rel="noopener noreferrer" class="text-text-secondary dark:text-dark-text-secondary hover:text-primary dark:hover:text-primary-light transition-all duration-300 text-3xl transform hover:scale-110" aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
                  </div>
@@ -359,28 +374,24 @@
     <footer class="bg-dark-bg dark:bg-black text-gray-400 dark:text-gray-500 py-8 text-center">
         <div class="container mx-auto px-6">
             <p>&copy; <span id="current-year"></span> Ítalo da Silva Costa. Todos os direitos reservados.</p>
-             <p class="text-sm mt-2">Desenvolvido com <i class="fas fa-heart text-red-500"></i> usando Tailwind CSS & AOS.</p>
+             <p class="text-sm mt-2">Desenvolvido com <i class="fas fa-heart text-red-500 mx-1"></i> e <a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer" class="hover:text-primary-light">Tailwind CSS</a>.</p>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Inicializa AOS
         AOS.init({
-            duration: 800, // Duração da animação
+            duration: 700, // Duração da animação
             once: true,    // Animar apenas uma vez
-            offset: 50,    // Offset (em px) para iniciar a animação
+            offset: 80,    // Offset (em px) para iniciar a animação antes do elemento estar totalmente visível
+            easing: 'ease-in-out', // Curva de animação
         });
 
         // Atualiza o ano no footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Reaplica tema e botão no DOMContentLoaded (mantido)
-        document.addEventListener('DOMContentLoaded', () => {
-            applyTheme();
-            updateToggleButton();
-        });
-
-        // Lógica Dark Mode (mantida - coloque aqui ou no <head>)
+        // Lógica Dark Mode Completa
         function applyTheme() {
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
@@ -413,7 +424,13 @@
                  sunIcon?.classList.remove('hidden');
              }
         }
+        // Aplica o tema e atualiza o botão ao carregar
+         document.addEventListener('DOMContentLoaded', () => {
+            applyTheme();
+            updateToggleButton();
+        });
 
     </script>
+
 </body>
 </html>
