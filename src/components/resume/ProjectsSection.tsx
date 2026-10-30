@@ -8,7 +8,7 @@ const projects = [
     description: 'Sistema completo de gestão para transportadora com dashboards analíticos, controle de documentos fiscais (CT-e/MDF-e), relatórios gerenciais e automação de processos.',
     icon: Truck,
     tags: ['Go', 'Python', 'PostgreSQL', 'Docker'],
-    link: 'https://destacktransporte.site/',
+    link: 'https://destacktransporte.com/',
   },
   {
     title: 'FabraFarma',
@@ -19,9 +19,9 @@ const projects = [
   },
   {
     title: 'GISC Tech',
-    description: 'Website institucional da empresa de tecnologia com apresentação de serviços, portfólio de projetos, formulário de contato e design responsivo moderno.',
+    description: 'Website institucional da empresa de tecnologia com apresentação de serviços, portfólio de projetos, contato direto e design responsivo.',
     icon: Globe,
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsivo'],
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
     link: 'https://www.gisctech.com.br/',
   },
 ];

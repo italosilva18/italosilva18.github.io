@@ -1,15 +1,8 @@
-import { Github, Linkedin, Mail, MapPin, Phone, Download } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
-
-  const handleDownloadCV = () => {
-    const link = document.createElement('a');
-    link.href = '/cv-italo-costa.pdf';
-    link.download = 'CV-Italo-Silva-Costa.pdf';
-    link.click();
-  };
 
   return (
     <footer id="contact" className="py-12 px-4 bg-primary text-primary-foreground">
@@ -91,15 +84,17 @@ export const Footer = () => {
             </Button>
           </div>
 
-          {/* Download CV Button */}
+          {/* CV Request */}
           <div className="flex justify-center">
             <Button
-              onClick={handleDownloadCV}
               className="gap-2 bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-300 px-8"
               size="lg"
+              asChild
             >
-              <Download className="h-5 w-5" />
-              Download CV
+              <a href="mailto:italosilva14@hotmail.com?subject=Solicitar%20CV">
+                <Mail className="h-5 w-5" />
+                Solicitar CV
+              </a>
             </Button>
           </div>
 
