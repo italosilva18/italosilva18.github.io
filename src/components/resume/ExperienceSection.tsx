@@ -1,27 +1,56 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Briefcase, Calendar } from 'lucide-react';
 
-const experiences = [
+type Experience = {
+  company: string;
+  companyMeta?: string;
+  role: string;
+  period: string;
+  description: string[];
+  stack?: string[];
+  current: boolean;
+};
+
+const experiences: Experience[] = [
   {
-    company: 'M2M',
-    role: 'Desenvolvedor de Software Júnior',
-    period: 'Mai 2024 – Atual',
+    company: 'Pacífico Serviços em Informática LTDA',
+    companyMeta: 'CNPJ 64.026.978/0001-05',
+    role: 'Desenvolvedor de Software (Go · Dados · Mobile Flutter)',
+    period: 'Jan 2026 – Atual',
     description: [
-      'Desenvolvimento de sistema CLI em Go para automação de relatórios gerenciais',
-      'Criação de APIs (Python/FastAPI) e scripts para coleta e processamento de dados',
-      'Desenvolvimento e manutenção de dashboards analíticos com Flutter',
+      'Desenvolvimento e operação da suíte modular Oceano para redes de varejo (módulos Atlas, ComoFoi, Feitto, Farol e Radar) em oceanoapp.com.br',
+      'Backends Go (Gin) + pipeline ETL multi-ERP (Oracle, Firebird, PostgreSQL, MySQL) → RabbitMQ → MongoDB com 2,3M+ documentos',
+      'Painel administrativo unificado (oceano-gestor) com RBAC granular e modules_access por loja/unidade',
+      'Dashboards e módulos mobile em Flutter/Dart (iOS e Android) + CLIs em Go para automação de relatórios',
+      'Operação híbrida: VPS dedicado (Docker Compose + Traefik) e cluster Kubernetes gerenciado (DigitalOcean DOKS)',
     ],
+    stack: ['Go', 'Gin', 'Python ETL', 'RabbitMQ', 'MongoDB', 'PostgreSQL', 'Flutter', 'Docker', 'Kubernetes'],
+    current: true,
+  },
+  {
+    company: 'GiscTech',
+    role: 'Fundador & Lead Software Engineer',
+    period: '2022 – Atual',
+    description: [
+      'Arquitetura full-cycle (Backend Go/Python, SQL/NoSQL, Web e Mobile Flutter iOS/Android) de 10+ sistemas B2B em produção',
+      'Oceano / Atlas (Retail Analytics): 4 microsserviços Go (~100 endpoints), ETL de 55+ ERPs via RabbitMQ (Outbox/DLQ) → MongoDB, Prometheus/Grafana e hardening de segurança (IDOR, JWT, rate limit)',
+      'Apps Mobile iOS & Android + SaaS: MyPila (Go/Fiber + PostgreSQL 16 + Flutter 3), Feitto (Go + MongoDB 7 replica set + Flutter 3), BarberGo e Sancus',
+      'Context-Memory MCP & aimemd: ingestão Python + PostgreSQL FTS + daemon Go BM25 em RAM (0,33 ms mediana) e DBPonte (túnel TCP/SSH multi-arch)',
+      'FabraFarma (Python/Django + assistente LLM → Go v2 + Postgres 16 + MinIO) e Polypod (open-source em Go para 16 LLMs)',
+    ],
+    stack: ['Go', 'Python', 'PostgreSQL', 'MongoDB', 'Flutter iOS/Android', 'RabbitMQ', 'Docker', 'Traefik', 'Prometheus'],
     current: true,
   },
   {
     company: 'Destack Transportes',
-    role: 'Desenvolvedor Freelancer – Sistema ADM',
+    role: 'Desenvolvedor Backend Freelancer (Go + Python)',
     period: 'Jan 2025 – Atual',
     description: [
-      'Projeto e desenvolvimento de sistema de análise e controle administrativo',
-      'Criação de dashboards interativos e otimização de queries (SQL/NoSQL)',
-      'Automação de processos e relatórios para suporte à gestão operacional',
+      'Backend Go para sistema de análise e controle administrativo de transportadora',
+      'Emissão e gestão de documentos fiscais (CT-e/MDF-e) com integração SEFAZ',
+      'Otimização de queries SQL/NoSQL e automação de relatórios gerenciais',
     ],
+    stack: ['Go', 'Python', 'PostgreSQL', 'Docker'],
     current: true,
   },
   {
@@ -29,9 +58,21 @@ const experiences = [
     role: 'Analista de Suporte e Integração',
     period: 'Abr 2022 – Fev 2025',
     description: [
-      'Integração de software (Windows/Linux) e suporte técnico N2/N3',
-      'Monitoramento e análise de dados (SQL Server, PostgreSQL, MongoDB)',
-      'Desenvolvimento de scripts e pequenas aplicações (Python, Go, PHP)',
+      'Integração de software (Windows/Linux) e suporte técnico N2/N3 em ambiente cliente',
+      'Monitoramento e análise de dados em SQL Server, PostgreSQL e MongoDB',
+      'Desenvolvimento de scripts e microaplicações em Python, Go e PHP para automação interna',
+    ],
+    stack: ['Go', 'Python', 'PHP', 'SQL Server', 'PostgreSQL', 'Linux'],
+    current: false,
+  },
+  {
+    company: 'Hospital do Exército',
+    role: 'Auxiliar de Licitação · Setor de Aquisição',
+    period: '2013 – 2020',
+    description: [
+      '7 anos de atuação no setor público — base de disciplina operacional e atenção a processos',
+      'Operação dos sistemas SIAFI / SIASG / Comprasnet, gestão de contratos em saúde',
+      'Elaboração de atas em sessões públicas (Pregão, Dispensa, Inexigibilidade) e publicação de editais',
     ],
     current: false,
   },
@@ -84,12 +125,19 @@ export const ExperienceSection = () => {
                   {/* Card */}
                   <div className="ml-8 md:ml-0 p-6 bg-card rounded-xl border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg group">
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2 text-accent">
-                        <Briefcase className="h-4 w-4" />
-                        <span className="font-semibold">{exp.company}</span>
-                        {exp.current && (
-                          <span className="px-2 py-0.5 text-xs bg-accent/20 text-accent rounded-full">
-                            Atual
+                      <div className={`flex flex-col gap-1 ${index % 2 === 0 ? 'md:items-end' : 'md:items-start'}`}>
+                        <div className="flex items-center gap-2 text-accent flex-wrap">
+                          <Briefcase className="h-4 w-4" />
+                          <span className="font-semibold">{exp.company}</span>
+                          {exp.current && (
+                            <span className="px-2 py-0.5 text-xs bg-accent/20 text-accent rounded-full">
+                              Atual
+                            </span>
+                          )}
+                        </div>
+                        {exp.companyMeta && (
+                          <span className="text-[11px] text-muted-foreground/70 font-mono tracking-tight">
+                            {exp.companyMeta}
                           </span>
                         )}
                       </div>
@@ -113,6 +161,22 @@ export const ExperienceSection = () => {
                           </li>
                         ))}
                       </ul>
+                      {exp.stack && exp.stack.length > 0 && (
+                        <div
+                          className={`flex flex-wrap gap-1.5 pt-3 ${
+                            index % 2 === 0 ? 'md:justify-end' : ''
+                          }`}
+                        >
+                          {exp.stack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2 py-0.5 text-xs rounded-md bg-secondary text-secondary-foreground"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -1,28 +1,70 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { ExternalLink, Truck, ShoppingBag, Globe } from 'lucide-react';
+import { ExternalLink, ShoppingBag, Globe, Terminal, BarChart3, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const projects = [
+type Project = {
+  title: string;
+  description: string;
+  icon: typeof Globe;
+  tags: string[];
+  link: string;
+  linkLabel?: string;
+};
+
+const projects: Project[] = [
   {
-    title: 'Destack Transporte',
-    description: 'Sistema completo de gestão para transportadora com dashboards analíticos, controle de documentos fiscais (CT-e/MDF-e), relatórios gerenciais e automação de processos.',
-    icon: Truck,
-    tags: ['Go', 'Python', 'PostgreSQL', 'Docker'],
-    link: 'https://destacktransporte.site/',
+    title: 'Suíte Oceano & Atlas — Analytics & ETL',
+    description:
+      '4 microsserviços em Go (Gin) (~100 endpoints) + pipeline ETL multi-ERP (55+ bancos legados: Oracle, Firebird, Postgres, MySQL) via RabbitMQ (Outbox/DLQ) → MongoDB com 2,3M+ documentos e dashboards Flutter.',
+    icon: BarChart3,
+    tags: ['Go', 'Python ETL', 'RabbitMQ', 'MongoDB', 'Flutter'],
+    link: 'https://app.oceanoapp.com.br',
+    linkLabel: 'Ver Plataforma',
   },
   {
-    title: 'FabraFarma',
-    description: 'E-commerce farmacêutico completo com catálogo de produtos, sistema de pedidos, integração WhatsApp e painel administrativo para gestão de estoque e vendas.',
-    icon: ShoppingBag,
-    tags: ['Python', 'Django', 'PostgreSQL', 'E-commerce'],
-    link: 'https://www.fabrafarma.com.br/',
+    title: 'Context-Memory MCP & aimemd',
+    description:
+      'Pipeline Python (ingestão incremental SHA-256 + sanitização) + Full-Text Search em PostgreSQL pareado ao daemon aimemd em Go (BM25 em RAM via Unix socket/MCP), reduzindo a latência mediana de 7,3 ms para 0,33 ms.',
+    icon: Terminal,
+    tags: ['Go', 'Python', 'PostgreSQL FTS', 'MCP', 'BM25'],
+    link: 'https://github.com/italosilva18',
+    linkLabel: 'Ver Perfil GitHub',
   },
   {
-    title: 'GISC Tech',
-    description: 'Website institucional da empresa de tecnologia com apresentação de serviços, portfólio de projetos, formulário de contato e design responsivo moderno.',
+    title: 'MyPila · Feitto · Apps Mobile',
+    description:
+      'Produtos SaaS multi-tenant com APIs Go (Fiber/Gin), PostgreSQL 16 (pgx/v5), MongoDB 7 replica set, MinIO S3 e aplicativos nativos Flutter 3 (iOS & Android) com Riverpod, GoRouter e Dio.',
+    icon: Briefcase,
+    tags: ['Flutter iOS/Android', 'Go', 'PostgreSQL', 'MongoDB', 'Riverpod'],
+    link: 'https://gisctech.com.br',
+    linkLabel: 'Sobre os produtos',
+  },
+  {
+    title: 'DBPonte — Túnel TCP & Agente Windows',
+    description:
+      'Conectividade segura a bancos SQL/NoSQL remotos (Oracle, Firebird, Postgres, SQL Server, MongoDB) via binários Go CGO_ENABLED=0 (x86/x64/ARM64), serviço Windows nativo e ponte SSH sem abrir portas em firewall.',
     icon: Globe,
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsivo'],
-    link: 'https://www.gisctech.com.br/',
+    tags: ['Go', 'TCP/SSH', 'Windows Service', 'SQL/NoSQL', 'Python QA'],
+    link: 'https://gisctech.com.br',
+    linkLabel: 'Arquitetura GiscTech',
+  },
+  {
+    title: 'Polypod — Gateway CLI de IA',
+    description:
+      'Open-source escrito 100% em Go (v0.5.0, 92 pacotes). Gateway unificado para 16 provedores de LLM (OpenAI, Anthropic, DeepSeek, Gemini, Groq, OpenRouter) com streaming, retry/backoff, cache e GitHub Actions.',
+    icon: Terminal,
+    tags: ['Go', 'CLI', 'LLMs', 'Concorrência', 'Open Source'],
+    link: 'https://github.com/italosilva18',
+    linkLabel: 'Ver no GitHub',
+  },
+  {
+    title: 'FabraFarma & Destack Transporte',
+    description:
+      'FabraFarma: e-commerce farmacêutico evoluído de Python/Django + assistente LLM para API Go + PostgreSQL 16 + MinIO + WhatsApp. Destack: gestão de CT-e/MDF-e e relatórios em Go, Python e PostgreSQL.',
+    icon: ShoppingBag,
+    tags: ['Python/Django', 'Go', 'PostgreSQL 16', 'MinIO S3', 'Docker'],
+    link: 'https://www.fabrafarma.com.br/',
+    linkLabel: 'Visitar FabraFarma',
   },
 ];
 
@@ -89,7 +131,7 @@ export const ProjectsSection = () => {
                     >
                       <a href={project.link} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
-                        Visitar Site
+                        {project.linkLabel ?? 'Visitar Site'}
                       </a>
                     </Button>
                   </div>

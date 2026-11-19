@@ -1,44 +1,84 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Code2, Database, Wrench } from 'lucide-react';
+import { Code2, Database, Wrench, Network, ShieldCheck, Sparkles } from 'lucide-react';
 
-const skillCategories = [
+type Skill = { name: string; highlight?: boolean };
+type Category = { title: string; icon: typeof Code2; skills: Skill[] };
+
+const skillCategories: Category[] = [
   {
-    title: 'Linguagens & Frameworks',
+    title: 'Backend Go (Principal)',
     icon: Code2,
     skills: [
-      { name: 'Go (Echo, Fiber, gRPC)', highlight: true },
-      { name: 'Python (FastAPI, Django, Flask)', highlight: true },
-      { name: 'Flutter & Dart', highlight: false },
-      { name: 'PHP', highlight: false },
-      { name: 'JavaScript', highlight: false },
-      { name: 'HTML5 / CSS3', highlight: false },
-      { name: 'Tailwind CSS', highlight: false },
+      { name: 'Go (Gin · Fiber · net/http)', highlight: true },
+      { name: 'Goroutines & Channels', highlight: true },
+      { name: 'context.Context · errgroup · sync', highlight: true },
+      { name: 'Worker pools & rate limiting' },
+      { name: 'JSON-RPC 2.0 & Unix sockets' },
+      { name: 'testing · testify · httptest · table-driven' },
+      { name: 'Static binaries (CGO_ENABLED=0)' },
+      { name: 'Go Modules · SemVer · pprof' },
     ],
   },
   {
-    title: 'Bancos de Dados',
+    title: 'Python (Dados, ETL & IA)',
+    icon: Sparkles,
+    skills: [
+      { name: 'Pipelines ETL Multi-ERP', highlight: true },
+      { name: 'Django & Django REST Framework', highlight: true },
+      { name: 'FastAPI · Automação & Ingestão', highlight: true },
+      { name: 'LLMs (OpenAI · Anthropic · Gemini · DeepSeek)' },
+      { name: 'MCP Servers · RAG · Busca BM25' },
+      { name: 'Processamento Documental & OCR' },
+      { name: 'Sanitização & Deduplicação SHA-256' },
+    ],
+  },
+  {
+    title: 'Bancos SQL & NoSQL + Mensageria',
     icon: Database,
     skills: [
-      { name: 'PostgreSQL', highlight: false },
-      { name: 'SQL Server', highlight: false },
-      { name: 'Oracle', highlight: false },
-      { name: 'MongoDB', highlight: false },
-      { name: 'SQLite', highlight: false },
-      { name: 'SQL & PL/pgSQL', highlight: false },
+      { name: 'MongoDB (2,3M+ docs · replica set · aggregation)', highlight: true },
+      { name: 'PostgreSQL 16 (pgx/v5 · FTS/tsvector · ACID)', highlight: true },
+      { name: 'RabbitMQ (DLQ · Outbox Pattern · Idempotência)', highlight: true },
+      { name: 'Redis (cache · sessões · rate-limit)' },
+      { name: 'MySQL · SQLite' },
+      { name: 'Extração Oracle · Firebird · SQL Server' },
     ],
   },
   {
-    title: 'Ferramentas & Conceitos',
+    title: 'Mobile Flutter (iOS & Android) & Web',
+    icon: Network,
+    skills: [
+      { name: 'Flutter 3 & Dart 3 (iOS & Android)', highlight: true },
+      { name: 'Riverpod · GoRouter · Dio', highlight: true },
+      { name: 'JWT Access/Refresh & Multi-Flavor', highlight: true },
+      { name: 'Resiliência Offline & Contratos OpenAPI' },
+      { name: 'React (Vite · Next.js) · TypeScript' },
+      { name: 'Angular · Tailwind CSS' },
+    ],
+  },
+  {
+    title: 'DevOps, Cloud & Observabilidade',
     icon: Wrench,
     skills: [
-      { name: 'Git & GitHub', highlight: false },
-      { name: 'Docker', highlight: false },
-      { name: 'APIs REST/gRPC', highlight: false },
-      { name: 'Mensageria (RabbitMQ, MQTT, SQS)', highlight: false },
-      { name: 'Monitoramento (Grafana, Prometheus)', highlight: false },
-      { name: 'Visualização (Power BI)', highlight: false },
-      { name: 'Linux & Bash Scripting', highlight: false },
-      { name: 'Metodologias Ágeis', highlight: false },
+      { name: 'Docker · Docker Compose · Kubernetes (DOKS)', highlight: true },
+      { name: 'Traefik v3.6 · NGINX · Let\'s Encrypt', highlight: true },
+      { name: 'Prometheus · Grafana · Alertmanager', highlight: true },
+      { name: 'GitHub Actions (CI/CD · GHCR) · Gitea Runner' },
+      { name: 'MinIO (S3-compatible) · Cloudflare DNS' },
+      { name: 'Linux · Túneis SSH / TCP · OpenVPN' },
+      { name: 'Structured logs (slog · zap) · 5 exporters' },
+    ],
+  },
+  {
+    title: 'Segurança & Engenharia',
+    icon: ShieldCheck,
+    skills: [
+      { name: 'JWT (HS256/RS256) · OAuth2 · RBAC granular', highlight: true },
+      { name: 'Mitigação IDOR · XSS · SSRF · Injection', highlight: true },
+      { name: 'Rate limiting por rota · CORS whitelist' },
+      { name: 'Token revocation & sessões multi-tenant' },
+      { name: 'TLS · SPF/DKIM/DMARC' },
+      { name: 'Clean Architecture · SOLID · Code Review' },
     ],
   },
 ];
@@ -48,27 +88,29 @@ export const SkillsSection = () => {
 
   return (
     <section id="skills" className="py-16 px-4 bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
+      <div className="container mx-auto max-w-6xl">
         <div ref={ref} className="space-y-12">
-          {/* Section Title */}
           <div className={`text-center space-y-4 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
               Habilidades <span className="text-accent">Técnicas</span>
             </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Foco principal em <strong className="text-accent">Go</strong> para backends de alta performance,
+              microsserviços e pipelines de dados em produção.
+            </p>
             <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
           </div>
 
-          {/* Skills Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {skillCategories.map((category, catIndex) => (
               <div
                 key={category.title}
-                className={`p-6 bg-card rounded-xl border border-border ${
+                className={`p-6 bg-card rounded-xl border border-border hover:border-accent/40 transition-all duration-300 ${
                   isVisible ? 'animate-fade-in-up' : 'opacity-0'
                 }`}
-                style={{ animationDelay: `${catIndex * 100}ms` }}
+                style={{ animationDelay: `${catIndex * 80}ms` }}
               >
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-3 mb-5">
                   <div className="p-2 rounded-lg bg-accent/10 text-accent">
                     <category.icon className="h-5 w-5" />
                   </div>
@@ -82,7 +124,7 @@ export const SkillsSection = () => {
                       key={skill.name}
                       className={`px-3 py-1.5 text-sm rounded-md font-medium ${
                         skill.highlight
-                          ? 'bg-accent/20 text-accent'
+                          ? 'bg-accent/20 text-accent ring-1 ring-accent/30'
                           : 'bg-secondary text-secondary-foreground'
                       }`}
                     >

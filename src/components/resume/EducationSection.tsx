@@ -3,29 +3,30 @@ import { GraduationCap, Calendar, Award, Globe } from 'lucide-react';
 
 const education = [
   {
-    institution: 'UniRuy Wyden',
-    degree: 'Análise e Desenvolvimento de Sistemas',
+    institution: 'Centro Universitário Ruy Barbosa (Wyden)',
+    degree: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
     period: 'Concluído em 2020',
-    description: 'Formação técnica focada em desenvolvimento de software, banco de dados e engenharia de sistemas.',
+    description:
+      'Formação tecnológica em desenvolvimento de software, banco de dados, arquitetura de sistemas e engenharia de requisitos.',
   },
 ];
 
 const certifications = [
-  'Python: Interface Gráfica (Fund. Bradesco, 2024)',
-  'Python: Orientado a Objetos (Fund. Bradesco, 2024)',
-  'Python: Estrutura de Dados (Fund. Bradesco, 2023)',
-  'Python: Fundamentos (Fund. Bradesco, 2023)',
-  'PCAP: Programming Essentials (Cisco, 2023)',
-  'Lógica de Programação (Fund. Bradesco, 2024)',
-  'Projetos de Sistemas de TI (Fund. Bradesco, 2023)',
-  'Git & GitHub (Simulador Entr., 2022)',
-  'MongoDB & NoSQL (Simulador Entr., 2022)',
-  'Introdução ao PHP (DIO, 2023)',
+  'Arquitetura da Informação e Projeto de Sistemas (40h, 2020)',
+  'Programação Android (40h, 2020)',
+  'Desenvolvimento com Python (40h, 2020)',
+  'PCAP: Programming Essentials in Python (Cisco)',
+  'Introducción a IoT (Cisco Networking Academy)',
+  'Lógica de Programação Essencial (DIO)',
+  'Git & GitHub (Simulador de Entrevistas)',
+  'MongoDB & NoSQL (Simulador de Entrevistas)',
+  'HTML5 — Introdução ao Front-End (40h, 2020)',
+  'Pacote Office Avançado e Manutenção de Microcomputadores',
 ];
 
 const languages = [
   { name: 'Português', level: 'Nativo' },
-  { name: 'Inglês', level: 'Intermediário (Leitura Técnica)' },
+  { name: 'Inglês', level: 'B1/B2 — Leitura técnica e escrita' },
 ];
 
 export const EducationSection = () => {
