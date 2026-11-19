@@ -104,6 +104,7 @@ export const Footer = () => {
               asChild
               className="gap-2 bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-300 px-8"
               size="lg"
+              asChild
             >
               <a href={cvHref} download="Curriculo-Italo-Silva-Costa.pdf">
                 <Download className="h-5 w-5" />

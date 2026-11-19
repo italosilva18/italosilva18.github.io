@@ -27,7 +27,6 @@ src/
 │   │   ├── ExperienceSection.tsx
 │   │   ├── ProjectsSection.tsx
 │   │   ├── SkillsSection.tsx
-│   │   ├── ContactSection.tsx
 │   │   ├── Footer.tsx
 │   │   └── ThemeToggle.tsx
 │   └── ui/          # Componentes shadcn/ui
@@ -44,7 +43,7 @@ src/
 git clone https://github.com/italosilva18/italosilva18.github.io.git
 
 # Instalar dependencias
-npm install
+npm ci
 
 # Iniciar servidor de desenvolvimento
 npm run dev
@@ -57,6 +56,8 @@ npm run preview
 ```
 
 ## Deploy
+
+O procedimento de release e rollback está em `docs/DEPLOY.md`.
 
 O deploy e feito automaticamente via GitHub Actions quando ha push na branch `main`.
 
@@ -72,9 +73,9 @@ O workflow:
 - Design responsivo (mobile-first)
 - Tema claro/escuro
 - Animacoes suaves
-- Download de CV
+- Solicitação de CV por e-mail
 - Links para redes sociais
-- Secoes: Hero, Sobre, Experiencia, Projetos, Skills, Contato
+- Secoes: Hero, Sobre, Experiencia, Educacao, Projetos e Skills
 
 ## Autor
 

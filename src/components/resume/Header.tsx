@@ -1,5 +1,5 @@
 import { ThemeToggle } from './ThemeToggle';
-import { Download } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const Header = () => {
@@ -15,6 +15,7 @@ export const Header = () => {
             size="sm"
             asChild
             className="gap-2 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+            asChild
           >
             <a
               href={`${import.meta.env.BASE_URL}cv-italo-costa.pdf`}
