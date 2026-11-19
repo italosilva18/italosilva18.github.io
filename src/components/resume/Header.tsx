@@ -15,7 +15,6 @@ export const Header = () => {
             size="sm"
             asChild
             className="gap-2 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
-            asChild
           >
             <a
               href={`${import.meta.env.BASE_URL}cv-italo-costa.pdf`}
